@@ -18,15 +18,15 @@ const getBase = (base) => (table) =>
   });
 
 const handleRecord = (languages, table = "", record) => {
-  table = table.toUpperCase();
-  if (!languages[Object.keys(languages)[0]][table])
-    Object.keys(languages).forEach((key) => (languages[key][table] = {}));
-  Object.keys(languages).forEach(
-    (key) =>
-      (languages[key][table][
-        (record.get("key") || "").toUpperCase().replace(/\s/g, "_")
-      ] = record.get(key))
-  );
+  const langKeys = Object.keys(languages)
+
+  if (!languages[langKeys[0]][table])
+    langKeys.forEach((key) => (languages[key][table] = {}));
+
+  langKeys.forEach((key) => {
+    const searchKey = (record.get("key") || "").replace(/\s/g, "_")
+    languages[key][table][searchKey] = record.get(key)
+  });
 };
 
 const parse = async (apiKey, baseId) => {
@@ -48,12 +48,8 @@ const parse = async (apiKey, baseId) => {
 
   meta.forEach((record) => handleRecord(languages, "lng", record));
   log("Retreiving translation", "🚡", 3, 4);
-
   await Promise.all(
-    tables.map(async (table) =>
-      (
-        await records(table)
-      ).forEach((record) => handleRecord(languages, table, record))
+    tables.map(async (table) => (await records(table)).forEach((record) => handleRecord(languages, table, record))
     )
   );
   return languages;
