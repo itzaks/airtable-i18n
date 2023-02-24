@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/node --experimental-specifier-resolution=node
 
 import program from 'commander'
 import * as path from "path";
