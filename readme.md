@@ -22,6 +22,12 @@ Usage
 
     3. Create your first translation table.
 
+### @itzaks addition
+
+Adds support for splitting the keys from `'index.content.title': 'value'` into `{index: {content: {title: 'value' }}}`
+
+Removed .js and index-file support. Added typescript.
+
 ### Example
 
 **Lng**
@@ -57,9 +63,7 @@ Automatise the CLI command to run before each commit to generate translations ea
 -t, --base <baseid> - ID of the airtable base
 -d, --directory <directory> - Output directory of translations - OPTIONAL - Default: the same directory
 -b, --beautify - Whether to beautify the generated language files
--f, --format - Format used to output the translations to
 -e, --env <path> - relative path to .env file - OPTIONAL - Default: the same directory
--i, --index - provide flag to create an index.js file with all the exports
 ```
 
 By default the command will search for an .env file in the same directory.
@@ -90,7 +94,7 @@ airtable-i18n -a <APIKEY> -b <BASEID> -d ./translation -b -f json
 ```javascript
 const { generateTranslation } = require('./index');
 
-generateTranslation('<APIKEY>', '<BASEID>', { output: './lngs', beutify: true, format: 'js' });
+generateTranslation('<APIKEY>', '<BASEID>', { output: './lngs', beutify: true });
 ```
 
 ### Options
@@ -101,8 +105,6 @@ generateTranslation('<APIKEY>', '<BASEID>', { output: './lngs', beutify: true, f
 | BASEID | True | The ID of the airtable base | - |
 | output | false | The output directory for translations | '.' |
 | beautify | false | Whether to beautify the generated translation files | false |
-| format | false | The format of the output files | js |
-| generateIndex | false | Whether to generate index.js file | false |
 
 ## Access translation
 
