@@ -8,19 +8,32 @@
     "type": "git",
     "url": "https://github.com/szalaybalazs/airtable-i18n.git"
   },
+  "scripts": {
+    "build": "tsc",
+    "test": "yarn run build && node --es-module-specifier-resolution=node lib/cli.js -b -d ./i18n"
+  },
+  "type": "module",
   "dependencies": {
-    "airtable": "^0.10.1",
-    "chalk": "^4.1.0",
+    "airtable": "^0.11.6",
+    "chalk": "^5.2.0",
     "commander": "^7.0.0",
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "fs": "^0.0.1-security",
+    "lodash": "^4.17.21",
+    "path": "^0.12.7",
+    "util": "^0.12.5"
   },
   "author": "Balázs Szalay <szalay.balazs.ms@gmail.com>",
   "bin": {
-    "airtable-i18n": "./cli.js"
+    "airtable-i18n": "./lib/cli.js"
   },
   "keywords": [
     "i18n",
     "airtable",
     "translation"
-  ]
+  ],
+  "devDependencies": {
+    "@types/node": "^18.14.1",
+    "typescript": "^4.9.5"
+  }
 }

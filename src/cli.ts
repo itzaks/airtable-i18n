@@ -1,8 +1,9 @@
 #!/usr/bin/env node
-const program = require('commander');
-const path = require('path');
-const log = require('./log');
-const chalk = require('chalk');
+import program from 'commander'
+import * as path from "path";
+import { log } from './log'
+import { parse, generate } from './index'
+import dotenv from 'dotenv'
 
 program
 	.version("1.0.1")
@@ -15,19 +16,16 @@ program
 	.option("-i, --index", "create index.js file with default exports")
 	.parse(process.argv);
 
-require('dotenv').config({ path: path.resolve(program.opts().env || './.env' )})
+dotenv.config({ path: path.resolve(program.opts().env || './.env' )})
 
 
 const options = {
 	directory: process.env.AIRTABLE_I18N_DIRECTORY || program.opts().directory || '.',
 	api: process.env.AIRTABLE_I18N_API_KEY || program.opts().api,
 	base: process.env.AIRTABLE_I18N_BASE_ID || program.opts().base,
-	format:  process.env.AIRTABLE_I18N_TRANSLATION_FORMAT || program.opts().format || 'js',
-	index:  process.env.AIRTABLE_I18N_INDEX || program.opts().index,
 	beautify: program.opts().beautify,
 };
 
-const { parse, generate } = require("./index.js");
 
  
 // const countdown = new CLI.Spinner('Contacting Airtable (1/2) ', ['⣾','⣽','⣻','⢿','⡿','⣟','⣯','⣷']);
@@ -39,8 +37,10 @@ const { parse, generate } = require("./index.js");
     if (!options.api) throw new Error('Missing airtable API key.');
     if (!options.base) throw new Error('Missing airtable base id.');
 
-    const languages = await parse(options.api, options.base);
-    await generate(languages, options.directory, Boolean(options.beautify), options.format, options.index);
+    const languages = await parse(options.api, options.base)
+		console.log("LANGS", languages);
+		
+    await generate(languages, options.directory, Boolean(options.beautify));
 
     console.log(`🚂  Successfuly generated translations`);
   } catch (error) {

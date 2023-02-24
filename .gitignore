@@ -3,3 +3,5 @@ node_modules
 node_modules/*
 temp
 temp/*
+i18n
+.env
