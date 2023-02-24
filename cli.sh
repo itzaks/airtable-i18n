@@ -1,2 +1,8 @@
 #!/usr/bin/env bash
-/usr/bin/env node --es-module-specifier-resolution=node ./lib/cli.js "$@"
+full_path="$(realpath "$0")"
+dir_path="$(dirname $full_path)"
+script_path="$dir_path./lib/cli.js"
+
+node_path="$(which node)" # <== Makes it work on github codespaces 😅
+
+$node_path --experimental-specifier-resolution=node $script_path "$@"
