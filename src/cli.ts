@@ -1,4 +1,5 @@
-#!/usr/bin/env node
+#!/usr/bin/node --es-module-specifier-resolution=node
+
 import program from 'commander'
 import * as path from "path";
 import { log } from './log'
@@ -39,7 +40,7 @@ const options = {
 
     const languages = await parse(options.api, options.base)
 		console.log("LANGS", languages);
-		
+
     await generate(languages, options.directory, Boolean(options.beautify));
 
     console.log(`🚂  Successfuly generated translations`);

@@ -10,7 +10,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "yarn run build && node --es-module-specifier-resolution=node lib/cli.js -b -d ./i18n"
+    "test": "yarn run build && ./cli.sh -b -d ./i18n"
   },
   "type": "module",
   "dependencies": {
@@ -25,7 +25,7 @@
   },
   "author": "Balázs Szalay <szalay.balazs.ms@gmail.com>",
   "bin": {
-    "airtable-i18n": "./lib/cli.js"
+    "airtable-i18n": "./cli.sh"
   },
   "keywords": [
     "i18n",
